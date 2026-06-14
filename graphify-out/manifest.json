@@ -1,0 +1,222 @@
+{
+  "app/build.gradle.kts": {
+    "mtime": 1774172056.59015,
+    "ast_hash": "3b64bc073d2cc7e17619f262b624371a",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/alpha/MainActivity.kt": {
+    "mtime": 1774093346.451829,
+    "ast_hash": "a87441996451ad9784ce82b16d07a8e1",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/alpha/core/ai/GeminiClient.kt": {
+    "mtime": 1774102683.793799,
+    "ast_hash": "22385ef9884d97cbb276794ece1b3d80",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/alpha/features/budget/BillPhotoManager.kt": {
+    "mtime": 1774149562.0,
+    "ast_hash": "ff1e81ff01148a143ee767402b9b887d",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/alpha/features/budget/BudgetRepository.kt": {
+    "mtime": 1774171034.217475,
+    "ast_hash": "285b44d318395c68ff72b318203f3e26",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/alpha/features/budget/BudgetScreen.kt": {
+    "mtime": 1774150774.0,
+    "ast_hash": "f8010d5d16f661f3c37db279b4d29212",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/alpha/features/budget/BudgetViewModel.kt": {
+    "mtime": 1774171932.753381,
+    "ast_hash": "54ec1da15fd6f9eebb60b5767e21a830",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/alpha/features/budget/DriveSync.kt": {
+    "mtime": 1774172116.5932949,
+    "ast_hash": "2a4c7747aef51d2ab7b2cf4b29ec99dd",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/alpha/features/budget/EsewaXlsParser.kt": {
+    "mtime": 1774172269.261731,
+    "ast_hash": "ded81f75737b3fdbdcc72ee15026bb99",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/alpha/features/budget/GmailParser.kt": {
+    "mtime": 1774170274.4634502,
+    "ast_hash": "367f6cbaac8a7ca8c947a70c22711bd4",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/alpha/features/budget/models/BudgetState.kt": {
+    "mtime": 1774162309.0,
+    "ast_hash": "17a013c1c1567b0acaf78fbc4b562ff0",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/alpha/features/budget/models/Transaction.kt": {
+    "mtime": 1774171022.7347002,
+    "ast_hash": "b5d7faa520a6a76de6b469a929641438",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/alpha/features/calculator/CalculatorScreen.kt": {
+    "mtime": 1774094911.5211792,
+    "ast_hash": "9ceeee58df07de01f5e78c60fefbd956",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/alpha/features/sbrcontrol/BluetoothComm.kt": {
+    "mtime": 1774147151.9707487,
+    "ast_hash": "7cd9a17699999c1ee2e1bf481b9d27b3",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/alpha/features/sbrcontrol/GestureLogic.kt": {
+    "mtime": 1774075909.0,
+    "ast_hash": "5dab9444755c099303ad273982c85112",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/alpha/features/sbrcontrol/GestureStability.kt": {
+    "mtime": 1774075909.0,
+    "ast_hash": "d8f5d49c345d2a0fd71c34733a133dc6",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/alpha/features/sbrcontrol/HandGestureProcessor.kt": {
+    "mtime": 1774152153.2878723,
+    "ast_hash": "e2df3990052c8e7f53dc514046672e91",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/alpha/features/sbrcontrol/SbrControlScreen.kt": {
+    "mtime": 1774095354.7896745,
+    "ast_hash": "90556369cf42bf9698cb457e29441656",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/alpha/features/sbrcontrol/SbrControlViewModel.kt": {
+    "mtime": 1774165182.0881286,
+    "ast_hash": "a55f8cf02b70659fe7cd7b4ceb26f474",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/alpha/features/settings/AppSettings.kt": {
+    "mtime": 1774092694.0,
+    "ast_hash": "271a74ebc132c573b1f2e5f631ebc319",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/alpha/features/settings/SettingsScreen.kt": {
+    "mtime": 1774155795.0409358,
+    "ast_hash": "8c3be7677fac9ea8d5f99ff73d587079",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/alpha/features/settings/SettingsViewModel.kt": {
+    "mtime": 1774092704.0,
+    "ast_hash": "2f59194479293246fbecf47bb709c74c",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/alpha/features/websearch/WebSearchScreen.kt": {
+    "mtime": 1774155652.4837377,
+    "ast_hash": "66de00707276565c18802fa60403669d",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/alpha/features/websearch/WebSearchViewModel.kt": {
+    "mtime": 1774095739.7702885,
+    "ast_hash": "a97ca1b160ee702208e6e00df1db1b7f",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/alpha/ui/home/HomeScreen.kt": {
+    "mtime": 1774163467.3638818,
+    "ast_hash": "9aec47b7e5536ae8bc0ef81462080a3c",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/alpha/ui/navigation/NavGraph.kt": {
+    "mtime": 1774165002.5286093,
+    "ast_hash": "c61ad4840f6424d94519125aecec5e01",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/alpha/ui/theme/Color.kt": {
+    "mtime": 1774090196.089894,
+    "ast_hash": "0892d953601cea7666f876fb688b3753",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/alpha/ui/theme/Theme.kt": {
+    "mtime": 1774083656.944448,
+    "ast_hash": "12d6f7cd93391eae0c706c386a56eaef",
+    "semantic_hash": ""
+  },
+  "app/src/main/java/com/alpha/ui/theme/Type.kt": {
+    "mtime": 1774155533.6293256,
+    "ast_hash": "b8dfb4b48b41b0663c2cdf0c55279d1f",
+    "semantic_hash": ""
+  },
+  "build.gradle.kts": {
+    "mtime": 1774146648.9717767,
+    "ast_hash": "0d7586f63bb33a6584f40641048a1572",
+    "semantic_hash": ""
+  },
+  "settings.gradle.kts": {
+    "mtime": 1774146721.5053174,
+    "ast_hash": "742568363648b3c52e304a291bfd0d07",
+    "semantic_hash": ""
+  },
+  "CHANGELOG.md": {
+    "mtime": 1774145500.0649729,
+    "ast_hash": "69783bb4608741542aef28bc3f7d9816",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1774145500.0649729,
+    "ast_hash": "71071769cb647a00a013b9ec7693f01a",
+    "semantic_hash": ""
+  },
+  "SECURITY.md": {
+    "mtime": 1774145500.0649729,
+    "ast_hash": "eef4b4d3aa5edc3cd3c140e95298ed72",
+    "semantic_hash": ""
+  },
+  "app/src/main/res/mipmap-hdpi/ic_launcher.png": {
+    "mtime": 1774070511.0,
+    "ast_hash": "a4b0e733b78870ca0c12b7dcea56bb38",
+    "semantic_hash": ""
+  },
+  "app/src/main/res/mipmap-hdpi/ic_launcher_round.png": {
+    "mtime": 1774070511.0,
+    "ast_hash": "a4b0e733b78870ca0c12b7dcea56bb38",
+    "semantic_hash": ""
+  },
+  "app/src/main/res/mipmap-mdpi/ic_launcher.png": {
+    "mtime": 1774070511.0,
+    "ast_hash": "5e746cdb3ac37d8345ccbad8214f43b1",
+    "semantic_hash": ""
+  },
+  "app/src/main/res/mipmap-mdpi/ic_launcher_round.png": {
+    "mtime": 1774070511.0,
+    "ast_hash": "5e746cdb3ac37d8345ccbad8214f43b1",
+    "semantic_hash": ""
+  },
+  "app/src/main/res/mipmap-xhdpi/ic_launcher.png": {
+    "mtime": 1774070511.0,
+    "ast_hash": "4363fc9ddfd97536afbc93b64ac6f9af",
+    "semantic_hash": ""
+  },
+  "app/src/main/res/mipmap-xhdpi/ic_launcher_round.png": {
+    "mtime": 1774070511.0,
+    "ast_hash": "4363fc9ddfd97536afbc93b64ac6f9af",
+    "semantic_hash": ""
+  },
+  "app/src/main/res/mipmap-xxhdpi/ic_launcher.png": {
+    "mtime": 1774070511.0,
+    "ast_hash": "cdb3bb5b920d2b5fb4c0feb9a05339dc",
+    "semantic_hash": ""
+  },
+  "app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png": {
+    "mtime": 1774070511.0,
+    "ast_hash": "cdb3bb5b920d2b5fb4c0feb9a05339dc",
+    "semantic_hash": ""
+  },
+  "app/src/main/res/mipmap-xxxhdpi/ic_launcher.png": {
+    "mtime": 1774070511.0,
+    "ast_hash": "052966700704a0474b38eb4321b07f90",
+    "semantic_hash": ""
+  },
+  "app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png": {
+    "mtime": 1774070511.0,
+    "ast_hash": "052966700704a0474b38eb4321b07f90",
+    "semantic_hash": ""
+  }
+}
