@@ -23,3 +23,6 @@ google-services.json
 
 # Generated
 /app/src/main/java/**/BuildConfig.java
+
+*.zip
+*.salive
