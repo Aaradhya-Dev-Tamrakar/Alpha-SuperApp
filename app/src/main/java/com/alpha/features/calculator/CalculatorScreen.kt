@@ -102,7 +102,8 @@ fun CalculatorScreen(onBack: () -> Unit) {
             "-"    -> first - second
             "×"    -> first * second
             "÷"    -> if (second != 0.0) first / second else Double.NaN
-            "%"    -> first % second
+            "MOD"  -> first % second
+            "%"    -> first * (second / 100.0)
             "//"   -> if (second != 0.0) floor(first / second) else Double.NaN
             "AND"  -> (first.toLong() and  second.toLong()).toDouble()
             "OR"   -> (first.toLong() or   second.toLong()).toDouble()
@@ -154,6 +155,20 @@ fun CalculatorScreen(onBack: () -> Unit) {
         val current = currentLong() ?: 0L
         inputBase = newBase
         display = longToDisplay(current)
+    }
+
+    fun onPercentage() {
+        if (mode != CalcMode.STANDARD) return
+        val current = display.toDoubleOrNull() ?: return
+        if (operator == null) {
+            // Unary: 50% = 0.5
+            display = formatResult(current / 100.0)
+            justCalculated = true
+        } else {
+            // Binary: 200 + 10% = 200 + (200 * 0.1)
+            // We set the operator to % which is handled in calculate()
+            onOperator("%")
+        }
     }
 
     // ── Theme ─────────────────────────────────────────────────────────────
@@ -360,7 +375,7 @@ fun CalculatorScreen(onBack: () -> Unit) {
             // ── PROG extra row ────────────────────────────────────────────
             if (mode == CalcMode.PROGRAMMER) {
                 ModeRow(
-                    labels  = listOf("SHL", "SHR", "//", "%"),
+                    labels  = listOf("SHL", "SHR", "//", "MOD"),
                     bgColor = specialBg,
                     fgColor = subtle,
                     height  = 40.dp,
@@ -425,7 +440,8 @@ fun CalculatorScreen(onBack: () -> Unit) {
                                     "+/-" -> onToggleSign()
                                     "."   -> onDecimal()
                                     "="   -> calculate()
-                                    in listOf("+", "-", "×", "÷", "%") -> onOperator(label)
+                                    "%"   -> onPercentage()
+                                    in listOf("+", "-", "×", "÷", "MOD") -> onOperator(label)
                                     else  -> onNumber(label)
                                 }
                             },

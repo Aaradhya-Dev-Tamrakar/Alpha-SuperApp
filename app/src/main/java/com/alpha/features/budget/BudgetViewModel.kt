@@ -4,6 +4,7 @@ import android.app.Application
 import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.alpha.core.auth.GoogleAuthManager
 import com.alpha.features.budget.models.BudgetState
 import com.alpha.features.budget.models.CategoryBudget
 import com.alpha.features.budget.models.Transaction
@@ -34,16 +35,16 @@ class BudgetViewModel(app: Application) : AndroidViewModel(app) {
     private val driveSync        = DriveSync(app)
     private val billPhotoManager = BillPhotoManager(app)
     private val http             = OkHttpClient()
+    private val authManager      = GoogleAuthManager(app)
 
     private val _uiState = MutableStateFlow(BudgetState())
     val uiState: StateFlow<BudgetState> = _uiState.asStateFlow()
 
+    val googleAccount = authManager.authState
+
     // Pending import waiting for duplicate resolution
     private val _importPreview = MutableStateFlow<XlsImportPreview?>(null)
     val importPreview: StateFlow<XlsImportPreview?> = _importPreview.asStateFlow()
-
-    private var _driveAccessToken: String? = null
-    val driveAccessToken: String? get() = _driveAccessToken
 
     init {
         viewModelScope.launch {
@@ -51,8 +52,24 @@ class BudgetViewModel(app: Application) : AndroidViewModel(app) {
                 _uiState.update { saved }
             }
         }
-        viewModelScope.launch(Dispatchers.IO) {
-            pullFromDriveIfOnline()
+        viewModelScope.launch {
+            googleAccount.collect { account ->
+                if (account != null) {
+                    pullFromDriveIfOnline()
+                }
+            }
+        }
+    }
+
+    fun getSignInClient() = authManager.getSignInClient()
+
+    fun handleSignInResult(account: com.google.android.gms.auth.api.signin.GoogleSignInAccount?) {
+        authManager.updateAccount(account)
+    }
+
+    fun signOut() {
+        viewModelScope.launch {
+            authManager.signOut()
         }
     }
 
@@ -117,7 +134,7 @@ class BudgetViewModel(app: Application) : AndroidViewModel(app) {
     // ── Drive sync ────────────────────────────────────────────────────────
 
     private suspend fun pullFromDriveIfOnline() {
-        val token = _driveAccessToken ?: return
+        val token = authManager.getAccessToken() ?: return
         if (!driveSync.isOnline()) return
         runCatching {
             val json = driveSync.pullBackup(token) ?: return
@@ -130,7 +147,7 @@ class BudgetViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     private fun pushToDriveIfOnline(transactions: List<Transaction>) {
-        val token = _driveAccessToken ?: return
+        val token = authManager.getAccessToken() ?: return
         if (!driveSync.isOnline()) return
         viewModelScope.launch(Dispatchers.IO) {
             runCatching {
@@ -140,13 +157,8 @@ class BudgetViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
-    fun setDriveAccessToken(token: String) {
-        _driveAccessToken = token
-        viewModelScope.launch(Dispatchers.IO) { pullFromDriveIfOnline() }
-    }
-
     fun forceDriveSync() {
-        val token = _driveAccessToken ?: run {
+        val token = authManager.getAccessToken() ?: run {
             _uiState.update { it.copy(syncError = "Not signed in to Google") }
             return
         }
@@ -165,7 +177,11 @@ class BudgetViewModel(app: Application) : AndroidViewModel(app) {
 
     // ── Gmail sync ────────────────────────────────────────────────────────
 
-    fun syncEsewaEmails(gmailAccessToken: String) {
+    fun syncEsewaEmails() {
+        val gmailAccessToken = authManager.getAccessToken() ?: run {
+            _uiState.update { it.copy(syncError = "Not signed in to Google") }
+            return
+        }
         viewModelScope.launch(Dispatchers.IO) {
             _uiState.update { it.copy(isSyncing = true, syncError = null) }
             runCatching {
@@ -266,7 +282,7 @@ class BudgetViewModel(app: Application) : AndroidViewModel(app) {
             _uiState.update { it.copy(transactions = updated) }
             pushToDriveIfOnline(updated)
             if (photoPath != null) {
-                _driveAccessToken?.let { token ->
+                authManager.getAccessToken()?.let { token ->
                     if (driveSync.isOnline()) billPhotoManager.uploadToDrive(token, txnId, photoPath)
                 }
             }
@@ -276,7 +292,7 @@ class BudgetViewModel(app: Application) : AndroidViewModel(app) {
     fun deleteTransaction(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             billPhotoManager.deleteLocally(id)
-            _driveAccessToken?.let { token ->
+            authManager.getAccessToken()?.let { token ->
                 if (driveSync.isOnline()) billPhotoManager.deleteFromDrive(token, id)
             }
             val updated = _uiState.value.transactions.filterNot { it.id == id }

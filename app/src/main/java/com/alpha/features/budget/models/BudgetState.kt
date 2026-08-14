@@ -25,8 +25,19 @@ fun currentMonthStartMs(): Long {
     return cal.timeInMillis
 }
 
-fun BudgetState.transactionsThisMonth() =
-    transactions.filter { it.dateEpochMs >= selectedMonthEpochMs }
+fun currentMonthEndMs(startMs: Long): Long {
+    val cal = java.util.Calendar.getInstance().apply {
+        timeInMillis = startMs
+        add(java.util.Calendar.MONTH, 1)
+        add(java.util.Calendar.MILLISECOND, -1)
+    }
+    return cal.timeInMillis
+}
+
+fun BudgetState.transactionsThisMonth(): List<Transaction> {
+    val endMs = currentMonthEndMs(selectedMonthEpochMs)
+    return transactions.filter { it.dateEpochMs in selectedMonthEpochMs..endMs }
+}
 
 fun BudgetState.totalSpentThisMonth() =
     transactionsThisMonth().sumOf { it.amount }

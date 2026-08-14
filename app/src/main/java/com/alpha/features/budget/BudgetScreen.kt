@@ -24,6 +24,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
@@ -53,9 +54,18 @@ fun BudgetScreen(
 ) {
     val state         by vm.uiState.collectAsStateWithLifecycle()
     val importPreview by vm.importPreview.collectAsStateWithLifecycle()
+    val googleAccount by vm.googleAccount.collectAsStateWithLifecycle()
     var selectedTab   by remember { mutableIntStateOf(0) }
     val tabs = listOf("Overview", "Transactions", "Limits")
     var showAddSheet  by remember { mutableStateOf(false) }
+
+    // Google Sign-In launcher
+    val signInLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+        runCatching { vm.handleSignInResult(task.result) }
+    }
 
     // XLS file picker
     val xlsLauncher = rememberLauncherForActivityResult(
@@ -74,6 +84,16 @@ fun BudgetScreen(
                     }
                 },
                 actions = {
+                    // Sign-In/Profile button
+                    if (googleAccount == null) {
+                        IconButton(onClick = { signInLauncher.launch(vm.getSignInClient().signInIntent) }) {
+                            Icon(Icons.Default.AccountCircle, contentDescription = "Sign In")
+                        }
+                    } else {
+                        IconButton(onClick = { vm.signOut() }) {
+                            Icon(Icons.Default.Logout, contentDescription = "Sign Out")
+                        }
+                    }
                     // Import XLS button
                     IconButton(onClick = { xlsLauncher.launch("application/vnd.ms-excel") }) {
                         Icon(Icons.Default.UploadFile, contentDescription = "Import eSewa XLS")
@@ -87,6 +107,10 @@ fun BudgetScreen(
                         IconButton(onClick = { vm.forceDriveSync() }) {
                             Icon(Icons.Default.Refresh, contentDescription = "Sync to Drive")
                         }
+                    }
+                    // Gmail sync
+                    IconButton(onClick = { vm.syncEsewaEmails() }) {
+                        Icon(Icons.Default.Mail, contentDescription = "Sync Gmail")
                     }
                 }
             )

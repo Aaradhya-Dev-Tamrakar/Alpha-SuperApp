@@ -79,24 +79,34 @@ class BudgetRepository(private val context: Context) {
 
     private fun parseTransactions(json: String): List<Transaction> = runCatching {
         val arr = JSONArray(json)
-        (0 until arr.length()).map { i ->
-            val o = arr.getJSONObject(i)
-            val categoryStr = o.getString("category")
-            val category = runCatching { TransactionCategory.valueOf(categoryStr) }
-                .getOrElse { TransactionCategory.OTHER }
+        val list = mutableListOf<Transaction>()
+        for (i in 0 until arr.length()) {
+            runCatching {
+                val o = arr.getJSONObject(i)
+                val categoryStr = o.optString("category")
+                val category = runCatching { TransactionCategory.valueOf(categoryStr) }
+                    .getOrElse { TransactionCategory.OTHER }
 
-            Transaction(
-                id             = o.getString("id"),
-                gmailMessageId = o.getString("gmailId").ifEmpty { null },
-                amount         = o.getDouble("amount"),
-                category       = category,
-                source         = TransactionSource.valueOf(o.getString("source")),
-                merchantName   = o.getString("merchant"),
-                note           = o.getString("note"),
-                dateEpochMs    = o.getLong("date"),
-                billPhotoPath  = o.optString("billPhotoPath").ifEmpty { null }
-            )
+                val sourceStr = o.optString("source", TransactionSource.MANUAL.name)
+                val source = runCatching { TransactionSource.valueOf(sourceStr) }
+                    .getOrElse { TransactionSource.MANUAL }
+
+                list.add(
+                    Transaction(
+                        id             = o.optString("id", java.util.UUID.randomUUID().toString()),
+                        gmailMessageId = o.optString("gmailId").ifEmpty { null },
+                        amount         = o.optDouble("amount", 0.0),
+                        category       = category,
+                        source         = source,
+                        merchantName   = o.optString("merchant"),
+                        note           = o.optString("note"),
+                        dateEpochMs    = o.optLong("date", System.currentTimeMillis()),
+                        billPhotoPath  = o.optString("billPhotoPath").ifEmpty { null }
+                    )
+                )
+            }
         }
+        list
     }.getOrElse { emptyList() }
 
     private fun serializeCategoryBudgets(list: List<CategoryBudget>): String {
