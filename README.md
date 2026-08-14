@@ -504,5 +504,5 @@ See [CHANGELOG.md](CHANGELOG.md) for the full version history.
 ---
 
 <p align="center">
-  <sub>Built with ❤️ using Kotlin & Jetpack Compose</sub>
+  <sub>Built using Kotlin & Jetpack Compose</sub>
 </p>
