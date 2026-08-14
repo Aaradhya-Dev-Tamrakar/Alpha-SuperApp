@@ -7,7 +7,7 @@
 - **Current Version**: 1.1.0 (released 2026-03-22)
 - **Next Version**: 1.2.0 (in progress)
 - **Platform**: Android
-- **Min SDK**: API 21 (Android 5.0)
+- **Min SDK**: API 26 (Android 8.0)
 - **Language**: Kotlin
 - **UI Framework**: Jetpack Compose (declarative, MVVM)
 - **Build System**: Gradle with Kotlin DSL

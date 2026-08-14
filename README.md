@@ -19,7 +19,7 @@ Alpha SuperApp is a feature-rich Android application built with the latest Andro
 
 ## Requirements
 
-- Android SDK 21 or higher
+- Android SDK 26 or higher
 - Android Studio (latest version recommended)
 - Gradle 7.0 or higher
 - Java 11 or higher
