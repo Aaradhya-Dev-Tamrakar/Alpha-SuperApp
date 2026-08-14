@@ -1,125 +1,99 @@
 # Alpha SuperApp
 
-A comprehensive Android application demonstrating modern development practices and architectural patterns.
-
-## Version
-
-Current version: 1.1.0 (managed automatically via semantic versioning)
-
-## Overview
-
-Alpha SuperApp is a feature-rich Android application built with the latest Android development tools and best practices. The project showcases professional app development standards including proper dependency management, build configuration, and resource organization.
+An Android super-app built with Jetpack Compose and MVVM, bundling AI-powered search, personal budget tracking, a gesture-controlled Bluetooth interface, and a calculator into one application.
 
 ## Features
 
-- Modern Android architecture
-- Gradle build system with Kotlin DSL
-- Organized project structure
-- [Add your specific features here]
+- **Budget** — transaction tracking with Gmail and Esewa (.xls) statement parsing, receipt photo capture, duplicate detection, and Google Drive sync
+- **Web Search** — natural-language and image-based (multimodal) search via Google Gemini
+- **SBR Control** — real-time hand-gesture recognition (MediaPipe, 21-point landmarks) mapped to Bluetooth device commands, with temporal stability filtering
+- **Calculator** — standard arithmetic calculator
+- **Settings** — light/dark theme with system-sync or manual override, persisted via DataStore
+
+## Tech Stack
+
+- **Language**: Kotlin 2.2.10
+- **UI**: Jetpack Compose (Material 3)
+- **Architecture**: MVVM + Repository pattern, reactive state via Kotlin Flow/StateFlow
+- **Build**: Gradle (Kotlin DSL), AGP 9.3.1
+- **Networking/Parsing**: OkHttp, Gson, Apache POI (.xls)
+- **Vision/Hardware**: MediaPipe Tasks Vision, CameraX, Android Bluetooth APIs
+- **Persistence**: Android DataStore
+- **Auth**: Google Play Services Auth (Drive)
 
 ## Requirements
 
-- Android SDK 26 or higher
-- Android Studio (latest version recommended)
-- Gradle 7.0 or higher
-- Java 11 or higher
+- Android Studio (latest stable)
+- JDK 11
+- Android SDK: minSdk 26, targetSdk 36, compileSdk 36
+- A Google Gemini API key (for Web Search)
 
-## Getting Started
-
-### Prerequisites
+## Setup
 
 1. Clone the repository
-2. Open the project in Android Studio
-3. Sync Gradle files
 
-### Building the Project
+   ```bash
+   git clone https://github.com/Aaradhya-Dev-Tamrakar/Alpha-SuperApp.git
+   ```
+
+2. Add your Gemini API key to `local.properties` at the project root:
+
+   ```properties
+   GEMINI_API_KEY=your_gemini_api_key_here
+   ```
+
+3. Open in Android Studio and sync Gradle
+
+## Build & Run
 
 ```bash
 ./gradlew build
-```
-
-### Running the App
-
-Connect an Android device or start an emulator, then:
-
-```bash
 ./gradlew installDebug
 ```
 
-Or use the "Run" button in Android Studio.
+Or use the **Run** button in Android Studio.
 
 ## Project Structure
 
+```app/src/main/java/com/alpha/
+├── core/
+│   └── ai/              # GeminiClient — Gemini API integration
+├── features/
+│   ├── budget/          # ViewModel, Repository, parsers, Drive sync, models
+│   ├── calculator/
+│   ├── sbrcontrol/      # Gesture pipeline + Bluetooth communication
+│   ├── settings/        # AppSettings (DataStore), theme state
+│   └── websearch/
+└── ui/
+    ├── navigation/       # NavGraph
+    ├── home/             # HomeScreen
+    └── theme/            # Color, Theme, Type
 ```
-Alpha SuperApp/
-├── app/
-│   ├── src/
-│   │   └── main/
-│   │       ├── java/
-│   │       ├── res/
-│   │       └── AndroidManifest.xml
-│   └── build.gradle.kts
-├── gradle/
-├── build.gradle.kts
-├── settings.gradle.kts
-└── local.properties
-```
 
-## Build Configuration
+See [CodeDescription.md](CodeDescription.md) for a full architectural breakdown of each module.
 
-- **Build System**: Gradle with Kotlin DSL
-- **Kotlin Version**: [Specify version]
-- **Target Android API**: [Specify version]
-- **Min Android API**: [Specify version]
+## Permissions
 
-## Dependencies
+`INTERNET`, `CAMERA`, `BLUETOOTH`, `BLUETOOTH_CONNECT`, `BLUETOOTH_SCAN`
 
-Key dependencies managed in `gradle/libs.versions.toml`:
-- [List main dependencies]
-
-For a complete list, see `gradle/libs.versions.toml`.
-
-## Development
-
-### Code Style
-
-Follow Android and Kotlin coding standards. Use Android Studio's built-in code inspections.
-
-### Testing
+## Testing
 
 ```bash
 ./gradlew test
 ```
 
-## Contributing
+## Security
 
-1. Create a feature branch
-2. Commit your changes
-3. Push to the branch
-4. Create a Pull Request
-
-Please review [SECURITY.md](SECURITY.md) for security guidelines.
+See [SECURITY.md](SECURITY.md) for responsible disclosure.
 
 ## License
 
-This project is licensed under the [License Type]. See [LICENSE](LICENSE) for details.
-
-## Security
-
-For security vulnerabilities, please refer to [SECURITY.md](SECURITY.md) for responsible disclosure guidelines.
-
-## Support
-
-For issues and questions:
-- Create an issue on the repository
-- Check existing documentation
-- Review the Wiki (if available)
-- Contact: aaradhyadevtmr@gmail.com
-
-## Acknowledgments
-
-Developed by Aaradhya Dev Tamrakar
+MIT — see [LICENSE](LICENSE).
 
 ## Changelog
 
-See [CHANGELOG.md](CHANGELOG.md) for version history and updates.
+See [CHANGELOG.md](CHANGELOG.md).
+
+## Contact
+
+Aaradhya Dev Tamrakar — <aaradhyadevtmr@gmail.com>
